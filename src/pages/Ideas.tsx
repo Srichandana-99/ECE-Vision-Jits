@@ -135,71 +135,71 @@ const Ideas = () => {
             filteredIdeas.map((idea) => {
               const authorName = profiles[idea.user_id] || 'Unknown';
               return (
-                <Card key={idea.id} className="hover:shadow-lg transition-shadow duration-300 border-0 shadow-md">
-                  <CardHeader>
-                    <div className="flex justify-between items-start mb-2">
-                      <Badge variant="secondary" className="text-xs">
+            <Card key={idea.id} className="hover:shadow-lg transition-shadow duration-300 border-0 shadow-md">
+              <CardHeader>
+                <div className="flex justify-between items-start mb-2">
+                  <Badge variant="secondary" className="text-xs">
                         {idea.category || 'General'}
-                      </Badge>
-                      <div className="flex items-center gap-4 text-gray-500 text-sm">
-                        <div className="flex items-center">
-                          <Eye className="h-4 w-4 mr-1" />
-                          {idea.views}
-                        </div>
-                        <div className="flex items-center">
+                  </Badge>
+                  <div className="flex items-center gap-4 text-gray-500 text-sm">
+                    <div className="flex items-center">
+                      <Eye className="h-4 w-4 mr-1" />
+                      {idea.views}
+                    </div>
+                    <div className="flex items-center">
                           <span title={user ? 'Upvote' : 'Sign in to upvote'}>
                             <ThumbsUp className="h-4 w-4 mr-1 cursor-pointer"
                               onClick={() => handleUpvote(idea.id)}
                               style={{ color: user ? '#2563eb' : '#a1a1aa', pointerEvents: upvoting ? 'none' : 'auto' }}
                             />
                           </span>
-                          {idea.upvotes}
-                        </div>
-                      </div>
+                      {idea.upvotes}
                     </div>
-                    <CardTitle className="text-lg leading-tight">
-                      {idea.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 mb-4 line-clamp-3 text-sm">
-                      {idea.description}
-                    </p>
-                    <div className="flex flex-wrap gap-1 mb-4">
+                  </div>
+                </div>
+                <CardTitle className="text-lg leading-tight">
+                  {idea.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 mb-4 line-clamp-3 text-sm">
+                  {idea.description}
+                </p>
+                <div className="flex flex-wrap gap-1 mb-4">
                       {(idea.skills || []).slice(0, 3).map((skill: string) => (
-                        <Badge key={skill} variant="outline" className="text-xs">
-                          {skill}
-                        </Badge>
-                      ))}
+                    <Badge key={skill} variant="outline" className="text-xs">
+                      {skill}
+                    </Badge>
+                  ))}
                       {idea.skills && idea.skills.length > 3 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{idea.skills.length - 3}
-                        </Badge>
-                      )}
-                    </div>
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                      <div className="flex items-center">
-                        <User className="h-4 w-4 mr-1" />
+                    <Badge variant="outline" className="text-xs">
+                      +{idea.skills.length - 3}
+                    </Badge>
+                  )}
+                </div>
+                <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                  <div className="flex items-center">
+                    <User className="h-4 w-4 mr-1" />
                         <span className="truncate">{authorName}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <Calendar className="h-4 w-4 mr-1" />
+                  </div>
+                  <div className="flex items-center">
+                    <Calendar className="h-4 w-4 mr-1" />
                         {idea.created_at ? new Date(idea.created_at).toLocaleDateString() : ''}
-                      </div>
-                    </div>
+                  </div>
+                </div>
                     <Button className="w-full bg-blue-600 hover:bg-blue-700 text-sm" asChild>
                       <Link to={`/ideas/${idea.id}`}>View Details</Link>
-                    </Button>
-                  </CardContent>
-                </Card>
+                </Button>
+              </CardContent>
+            </Card>
               );
             })
           ) : (
             <div className="col-span-full text-center py-12">
-              <p className="text-gray-500 text-lg">No ideas found matching your criteria.</p>
-              <p className="text-gray-400 mt-2">Try adjusting your search or filters.</p>
-            </div>
-          )}
+            <p className="text-gray-500 text-lg">No ideas found matching your criteria.</p>
+            <p className="text-gray-400 mt-2">Try adjusting your search or filters.</p>
+          </div>
+        )}
         </div>
       </div>
 

@@ -187,7 +187,7 @@ const Explore = () => {
                 {loading ? (
                   <div>Loading...</div>
                 ) : (
-                  <div className="space-y-4">
+                <div className="space-y-4">
                     {Object.entries(trendingTopics).map(([topic, count]) => (
                       <div key={topic} className="bg-white rounded-lg shadow p-4 flex items-center justify-between">
                         <div>
@@ -195,10 +195,10 @@ const Explore = () => {
                           <div className="text-sm text-gray-500">{count} active ideas</div>
                         </div>
                         <button className="px-4 py-2 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">Explore</button>
-                      </div>
-                    ))}
+                        </div>
+                  ))}
                     {Object.keys(trendingTopics).length === 0 && <div className="text-gray-500">No topics found.</div>}
-                  </div>
+                </div>
                 )}
               </div>
               {/* Quick Stats */}
@@ -206,11 +206,11 @@ const Explore = () => {
                 <h2 className="text-xl font-bold mb-4">Quick Stats</h2>
                 <div className="space-y-4">
                   <div className="bg-white rounded-lg shadow p-4 flex items-center justify-between">
-                    <div className="text-gray-600">Active Ideas</div>
+                      <div className="text-gray-600">Active Ideas</div>
                     <div className="text-2xl font-bold text-blue-600">{activeIdeas}</div>
                   </div>
                   <div className="bg-white rounded-lg shadow p-4 flex items-center justify-between">
-                    <div className="text-gray-600">Active Innovators</div>
+                      <div className="text-gray-600">Active Innovators</div>
                     <div className="text-2xl font-bold text-green-600">{activeInnovators}</div>
                   </div>
                 </div>
@@ -225,7 +225,7 @@ const Explore = () => {
               {loading ? (
                 <div>Loading...</div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {profiles.map((profile) => (
                     <div key={profile.id} className="bg-white rounded-lg shadow p-6 flex flex-col items-center">
                       <div className="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-white text-2xl font-bold mb-4">
@@ -283,13 +283,13 @@ const Explore = () => {
                           onClick={() => handleConnect(profile.id)}
                           disabled={connecting === profile.id}
                         >
-                          Connect
+                        Connect
                         </button>
                       )}
                     </div>
-                  ))}
+                ))}
                   {profiles.length === 0 && <div className="text-gray-500">No innovators found.</div>}
-                </div>
+              </div>
               )}
             </div>
           </TabsContent>
@@ -324,7 +324,7 @@ const Explore = () => {
                       </div>
                     );
                   })}
-                </div>
+              </div>
               )}
             </div>
           </TabsContent>

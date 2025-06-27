@@ -99,8 +99,8 @@ const Register = () => {
       localStorage.setItem('pendingProfile', JSON.stringify({
         hallTicketNumber: formData.hallTicketNumber,
         mobile: formData.mobile,
-        skills: formData.skills
-      }));
+          skills: formData.skills
+        }));
       setLoading(false);
       navigate('/');
       return;

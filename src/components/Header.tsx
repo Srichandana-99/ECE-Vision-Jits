@@ -21,12 +21,12 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex flex-col items-start">
             <div className="flex items-center space-x-2">
-              <img 
-                src="/lovable-uploads/394a25c9-ef4f-40ca-b62a-16bc894aaf24.png" 
-                alt="ECE-Vision Hub Logo" 
+            <img 
+              src="/lovable-uploads/394a25c9-ef4f-40ca-b62a-16bc894aaf24.png" 
+              alt="ECE-Vision Hub Logo" 
                 className="h-12 w-12"
-              />
-              <span className="text-xl font-bold text-blue-600">ECE-Vision Hub</span>
+            />
+            <span className="text-xl font-bold text-blue-600">ECE-Vision Hub</span>
             </div>
             <span className="text-xs text-gray-500">Jyothishmathi Institute of Technology and Science</span>
           </Link>

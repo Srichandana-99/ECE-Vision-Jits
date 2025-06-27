@@ -22,14 +22,14 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a href="https://www.facebook.com/jyothishmathigroupofinstitutions/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                <Facebook className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
+              <Facebook className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
               </a>
               <Twitter className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
               <a href="https://www.instagram.com/jyothishmathi.institutions/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <Instagram className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
+              <Instagram className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
               </a>
               <a href="https://www.linkedin.com/school/jyothisamithi-institute-of-technological-technology-&-science/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                <Linkedin className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
+              <Linkedin className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
               </a>
             </div>
           </div>

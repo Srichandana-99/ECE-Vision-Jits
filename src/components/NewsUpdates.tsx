@@ -132,7 +132,7 @@ const NewsUpdates = () => {
                   {item.type === 'notification' && item.priority && (
                     <Badge className={getPriorityColor(item.priority)}>
                       {item.priority.toUpperCase()}
-                    </Badge>
+                  </Badge>
                   )}
                   <div className="flex items-center text-gray-500 text-sm">
                     <Bell className="h-4 w-4 mr-1" />

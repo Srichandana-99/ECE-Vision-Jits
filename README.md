@@ -1,73 +1,178 @@
-# Welcome to your Lovable project
+# ECE-Vision Hub
 
-## Project info
+A comprehensive platform for ECE students to share innovative ideas, connect with mentors, and build portfolios. Built with React, TypeScript, Supabase, and modern web technologies.
 
-**URL**: https://lovable.dev/projects/5d871f27-61bc-4365-9ca3-6484fcc08eb3
+## 🚀 Features
 
-## How can I edit this code?
+- **User Authentication**: Secure login/registration with Supabase Auth
+- **Idea Management**: Submit, edit, and manage innovative project ideas
+- **Social Features**: Connect with other users, follow mentors
+- **Upvoting System**: Vote on ideas and suggestions with real-time updates
+- **Achievement System**: Automatic milestone tracking and badges
+- **Responsive Design**: Beautiful UI that works on all devices
+- **Dark/Light Mode**: Theme switching with next-themes
+- **Admin Dashboard**: Comprehensive admin panel for platform management
 
-There are several ways of editing your application.
+## 🛠️ Tech Stack
 
-**Use Lovable**
+- **Frontend**: React 18, TypeScript, Vite
+- **UI Components**: shadcn/ui, Radix UI, Tailwind CSS
+- **Backend**: Supabase (PostgreSQL, Auth, Real-time)
+- **Routing**: React Router DOM
+- **State Management**: React Context + Hooks
+- **Forms**: React Hook Form + Zod validation
+- **Theming**: next-themes for dark/light mode
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/5d871f27-61bc-4365-9ca3-6484fcc08eb3) and start prompting.
+## 📦 Installation
 
-Changes made via Lovable will be committed automatically to this repo.
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd jits-innovate-connect-thrive-main
+   ```
 
-**Use your preferred IDE**
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+3. **Set up environment variables**
+   ```bash
+   cp env.example .env.local
+   ```
+   
+   Update `.env.local` with your Supabase credentials:
+   ```env
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+4. **Start development server**
+   ```bash
+   npm run dev
+   ```
 
-Follow these steps:
+5. **Open your browser**
+   Navigate to `http://localhost:8080`
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🚀 Deployment
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Quick Deploy with Vercel
 
-# Step 3: Install the necessary dependencies.
-npm i
+1. **Using the deployment script**:
+   ```bash
+   ./deploy.sh
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+2. **Manual deployment**:
+   - Push your code to GitHub
+   - Connect your repository to Vercel
+   - Set environment variables in Vercel dashboard
+   - Deploy!
+
+### Detailed Deployment Guide
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for comprehensive deployment instructions.
+
+## 📁 Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components
+│   ├── Header.tsx      # Navigation header
+│   ├── Footer.tsx      # Site footer
+│   └── ...
+├── pages/              # Page components
+│   ├── admin/          # Admin dashboard pages
+│   ├── Login.tsx       # Authentication pages
+│   ├── Ideas.tsx       # Ideas listing
+│   └── ...
+├── hooks/              # Custom React hooks
+├── integrations/       # External service integrations
+│   └── supabase/       # Supabase client and types
+├── layouts/            # Layout components
+├── lib/                # Utility functions
+└── main.tsx           # App entry point
 ```
 
-**Edit a file directly in GitHub**
+## 🔧 Available Scripts
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+- `./deploy.sh` - Deploy to Vercel
 
-**Use GitHub Codespaces**
+## 🔐 Environment Variables
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `VITE_SUPABASE_URL` | Your Supabase project URL | Yes |
+| `VITE_SUPABASE_ANON_KEY` | Your Supabase anon key | Yes |
+| `VITE_APP_NAME` | Application name | No |
+| `VITE_APP_URL` | Your app's URL | No |
 
-## What technologies are used for this project?
+## 🎯 Key Features Explained
 
-This project is built with:
+### Authentication System
+- Email/password registration and login
+- Password reset functionality
+- Automatic profile creation
+- Session management
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Idea Management
+- Submit new project ideas
+- Edit existing ideas (owner only)
+- Add suggestions to ideas
+- Upvote system with real-time updates
 
-## How can I deploy this project?
+### Social Features
+- User profiles with avatars
+- Follow/unfollow system
+- Connection management
+- Activity tracking
 
-Simply open [Lovable](https://lovable.dev/projects/5d871f27-61bc-4365-9ca3-6484fcc08eb3) and click on Share -> Publish.
+### Achievement System
+- Automatic milestone detection
+- Badge awarding for:
+  - First idea submission
+  - Community building
+  - Mentorship activities
+  - Engagement milestones
 
-## Can I connect a custom domain to my Lovable project?
+### Admin Dashboard
+- User management
+- Content moderation
+- Analytics and insights
+- System configuration
 
-Yes, you can!
+## 🤝 Contributing
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 📝 License
+
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+If you encounter any issues:
+1. Check the [deployment guide](./DEPLOYMENT.md)
+2. Review Supabase documentation
+3. Check browser console for errors
+4. Verify environment variables are set correctly
+
+## 🔗 Links
+
+- [Live Demo](https://your-app.vercel.app)
+- [Supabase Dashboard](https://app.supabase.com)
+- [Vercel Dashboard](https://vercel.com/dashboard)
+
+---
+
+Built with ❤️ for ECE students and innovators
