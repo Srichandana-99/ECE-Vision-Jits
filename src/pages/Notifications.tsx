@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Bell, Calendar, Clock, Filter } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -33,6 +32,7 @@ const Notifications = () => {
       const { data, error } = await supabase
         .from('notifications')
         .select('*')
+        .or(`user_id.eq.${user.id},user_id.is.null`)
         .order('created_at', { ascending: false });
 
       if (error) throw error;

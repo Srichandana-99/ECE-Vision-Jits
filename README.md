@@ -49,8 +49,8 @@ A comprehensive platform for ECE students to share innovative ideas, connect wit
 
 4. **Start development server**
    ```bash
-   npm run dev
-   ```
+npm run dev
+```
 
 5. **Open your browser**
    Navigate to `http://localhost:8080`

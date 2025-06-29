@@ -12,6 +12,7 @@ export default function AdminNotifications() {
   const [notifications, setNotifications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchUsers();
@@ -42,12 +43,23 @@ export default function AdminNotifications() {
     setSending(true);
     let error = null;
     if (selectedUser === 'all') {
-      // Broadcast: insert notification for each user
-      const inserts = users.map(u => ({ user_id: u.id, title, description, priority: 'low', type: 'announcement' }));
-      const { error: insertError } = await supabase.from('notifications').insert(inserts);
+      // Broadcast: insert a single notification with user_id null
+      const { error: insertError } = await supabase.from('notifications').insert({
+        user_id: null,
+        title,
+        description,
+        priority: 'low',
+        type: 'announcement'
+      });
       error = insertError;
     } else {
-      const { error: insertError } = await supabase.from('notifications').insert({ user_id: selectedUser, title, description, priority: 'low', type: 'announcement' });
+      const { error: insertError } = await supabase.from('notifications').insert({
+        user_id: selectedUser,
+        title,
+        description,
+        priority: 'low',
+        type: 'announcement'
+      });
       error = insertError;
     }
     if (!error) {
@@ -60,6 +72,19 @@ export default function AdminNotifications() {
       toast({ title: 'Error', description: error.message || 'Failed to send notification.', variant: 'destructive' });
     }
     setSending(false);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!window.confirm('Are you sure you want to delete this notification?')) return;
+    setDeletingId(id);
+    const { error } = await supabase.from('notifications').delete().eq('id', id);
+    if (!error) {
+      toast({ title: 'Notification Deleted', description: 'The notification was deleted successfully.' });
+      fetchNotifications();
+    } else {
+      toast({ title: 'Error', description: error.message || 'Failed to delete notification.', variant: 'destructive' });
+    }
+    setDeletingId(null);
   };
 
   return (
@@ -115,6 +140,7 @@ export default function AdminNotifications() {
                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Title</th>
                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Message</th>
                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Sent At</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -128,6 +154,16 @@ export default function AdminNotifications() {
                   <td className="px-4 py-2 font-medium text-gray-900">{n.title}</td>
                   <td className="px-4 py-2 text-gray-700">{n.description}</td>
                   <td className="px-4 py-2 text-gray-500 text-xs">{new Date(n.created_at).toLocaleString()}</td>
+                  <td className="px-4 py-2">
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => handleDelete(n.id)}
+                      disabled={deletingId === n.id}
+                    >
+                      {deletingId === n.id ? 'Deleting...' : 'Delete'}
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>

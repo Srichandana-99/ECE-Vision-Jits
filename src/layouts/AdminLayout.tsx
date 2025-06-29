@@ -19,21 +19,17 @@ export default function AdminLayout({ children }: { children?: React.ReactNode }
 
   useEffect(() => {
     const checkAdminAccess = async () => {
-      if (!user) {
-        navigate('/');
-        return;
-      }
-
+      if (!user) return; // Wait for user to load
       try {
         const role = await getUserRole(user.id);
         if (role !== 'admin') {
-          navigate('/');
+          setIsAdmin(false);
           return;
         }
         setIsAdmin(true);
       } catch (error) {
         console.error('Error checking admin access:', error);
-        navigate('/');
+        setIsAdmin(false);
       }
     };
 
@@ -45,13 +41,15 @@ export default function AdminLayout({ children }: { children?: React.ReactNode }
     navigate('/');
   };
 
-  // Show loading or redirect if not admin
-  if (isAdmin === null) {
+  // Show loading spinner if user or isAdmin is not loaded
+  if (!user || isAdmin === null) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   }
 
-  if (!isAdmin) {
-    return null; // Will redirect
+  // Redirect if user is loaded and not admin
+  if (isAdmin === false) {
+    navigate('/');
+    return null;
   }
 
   return (
