@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Eye, ThumbsUp, User, Calendar, ArrowRight } from 'lucide-react';
@@ -28,7 +27,7 @@ const FeaturedIdeas = () => {
 
   const fetchFeaturedIdeas = async () => {
     try {
-      // First, get the ideas
+      // Only fetch ideas that are featured and approved
       const { data: ideasData, error: ideasError } = await supabase
         .from('ideas')
         .select(`
@@ -42,7 +41,8 @@ const FeaturedIdeas = () => {
           user_id
         `)
         .eq('status', 'approved')
-        .order('upvotes', { ascending: false })
+        .eq('is_featured', true)
+        .order('created_at', { ascending: false })
         .limit(6);
 
       if (ideasError) throw ideasError;

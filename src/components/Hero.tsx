@@ -1,9 +1,20 @@
-
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Lightbulb, Users, Award, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/useAuth';
 
 const Hero = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    if (user) {
+      navigate('/submit-idea');
+    } else {
+      navigate('/register');
+    }
+  };
+
   return (
     <section className="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,11 +28,13 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Link to="/register">
-              <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-semibold px-8 py-3">
-                Get Started
-              </Button>
-            </Link>
+            <Button
+              size="lg"
+              className="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-semibold px-8 py-3"
+              onClick={handleGetStarted}
+            >
+              Get Started
+            </Button>
             <Link to="/ideas">
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3">
                 Explore Ideas

@@ -27,6 +27,7 @@ import NotFound from "./pages/NotFound";
 import IdeaDetail from "./pages/IdeaDetail";
 import NewsDetail from "./pages/NewsDetail";
 import Updates from "./pages/Updates";
+import NotificationDetail from "./pages/NotificationDetail";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/submit-idea" element={<SubmitIdea />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/notifications" element={<Notifications />} />
+            <Route path="/notifications/:id" element={<NotificationDetail />} />
             <Route path="/help" element={<Help />} />
             <Route path="/achievements" element={<Achievements />} />
             <Route path="/admin" element={<AdminLayout />}>

@@ -26,12 +26,45 @@ export default function AdminProjects() {
     setLoading(false);
   };
 
-  const handleFeatureToggle = async (projectId: string, feature: boolean) => {
+  const handleFeatureToggle = async (projectId: string, feature: boolean, userId: string) => {
     setUpdating(projectId);
     const { error } = await supabase.from('ideas').update({ is_featured: feature }).eq('id', projectId);
     if (!error) {
       setProjects(prev => prev.map(p => p.id === projectId ? { ...p, is_featured: feature } : p));
       toast({ title: feature ? 'Project Featured' : 'Project Unfeatured', description: `Project has been ${feature ? 'featured' : 'unfeatured'}.` });
+      // Send notification to user if featured
+      if (feature && userId) {
+        await supabase.from('notifications').insert({
+          user_id: userId,
+          title: 'Project Featured',
+          description: 'Congratulations! Your project has been featured by the admin!',
+          priority: 'low',
+          type: 'announcement',
+        });
+      }
+    } else {
+      toast({ title: 'Error', description: error.message || 'Failed to update project.', variant: 'destructive' });
+    }
+    setUpdating(null);
+  };
+
+  const handleApproveToggle = async (projectId: string, userId: string, approve: boolean) => {
+    setUpdating(projectId);
+    const newStatus = approve ? 'approved' : 'pending';
+    const { error } = await supabase.from('ideas').update({ status: newStatus }).eq('id', projectId);
+    if (!error) {
+      setProjects(prev => prev.map(p => p.id === projectId ? { ...p, status: newStatus } : p));
+      toast({ title: approve ? 'Project Approved' : 'Project Deapproved', description: `Project has been ${approve ? 'approved' : 'set to pending'}.` });
+      // Send notification to user if approved
+      if (approve && userId) {
+        await supabase.from('notifications').insert({
+          user_id: userId,
+          title: 'Project Approved',
+          description: 'Congratulations! Your project has been approved or featured by the admin.',
+          priority: 'low',
+          type: 'announcement',
+        });
+      }
     } else {
       toast({ title: 'Error', description: error.message || 'Failed to update project.', variant: 'destructive' });
     }
@@ -100,10 +133,15 @@ export default function AdminProjects() {
                     )}
                   </td>
                   <td className="px-4 py-2 flex gap-2">
-                    {p.is_featured ? (
-                      <Button size="sm" className="bg-gray-200 text-blue-700 hover:bg-blue-100" onClick={() => handleFeatureToggle(p.id, false)} disabled={updating === p.id}>Unfeature</Button>
+                    {p.status === 'approved' ? (
+                      <Button size="sm" className="bg-gray-200 text-blue-700 hover:bg-blue-100" onClick={() => handleApproveToggle(p.id, p.user_id, false)} disabled={updating === p.id}>Deapprove</Button>
                     ) : (
-                      <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => handleFeatureToggle(p.id, true)} disabled={updating === p.id}>Feature</Button>
+                      <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white" onClick={() => handleApproveToggle(p.id, p.user_id, true)} disabled={updating === p.id}>Approve</Button>
+                    )}
+                    {p.is_featured ? (
+                      <Button size="sm" className="bg-gray-200 text-blue-700 hover:bg-blue-100" onClick={() => handleFeatureToggle(p.id, false, p.user_id)} disabled={updating === p.id}>Unfeature</Button>
+                    ) : (
+                      <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => handleFeatureToggle(p.id, true, p.user_id)} disabled={updating === p.id}>Feature</Button>
                     )}
                     <Button size="sm" variant="outline" className="border-red-500 text-red-600 hover:bg-red-50" onClick={() => setConfirmDelete(p.id)} disabled={deleting === p.id}>Delete</Button>
                   </td>
