@@ -33,8 +33,8 @@ const Hero = () => {
               className="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-semibold px-8 py-3"
               onClick={handleGetStarted}
             >
-              Get Started
-            </Button>
+                Get Started
+              </Button>
             <Link to="/ideas">
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3">
                 Explore Ideas

@@ -6,6 +6,22 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 
+interface IdeaData {
+  id: string;
+  title: string;
+  description: string;
+  skills: string[];
+  upvotes: number;
+  views: number;
+  created_at: string;
+  user_id: string;
+}
+
+interface Profile {
+  id: string;
+  full_name: string;
+}
+
 interface Idea {
   id: string;
   title: string;
@@ -27,7 +43,7 @@ const FeaturedIdeas = () => {
 
   const fetchFeaturedIdeas = async () => {
     try {
-      // Only fetch ideas that are featured and approved
+      // Fetch all approved ideas
       const { data: ideasData, error: ideasError } = await supabase
         .from('ideas')
         .select(`
@@ -41,7 +57,6 @@ const FeaturedIdeas = () => {
           user_id
         `)
         .eq('status', 'approved')
-        .eq('is_featured', true)
         .order('created_at', { ascending: false })
         .limit(6);
 
@@ -53,7 +68,7 @@ const FeaturedIdeas = () => {
       }
 
       // Get user IDs from ideas
-      const userIds = ideasData.map(idea => idea.user_id);
+      const userIds = ideasData.map((idea: IdeaData) => idea.user_id);
 
       // Fetch user profiles
       const { data: profilesData, error: profilesError } = await supabase
@@ -64,8 +79,8 @@ const FeaturedIdeas = () => {
       if (profilesError) throw profilesError;
 
       // Combine the data
-      const combinedData = ideasData.map(idea => {
-        const profile = profilesData?.find(p => p.id === idea.user_id);
+      const combinedData = ideasData.map((idea: IdeaData) => {
+        const profile = profilesData?.find((p: Profile) => p.id === idea.user_id);
         return {
           id: idea.id,
           title: idea.title,
@@ -80,7 +95,7 @@ const FeaturedIdeas = () => {
 
       setIdeas(combinedData);
     } catch (error) {
-      console.error('Error fetching featured ideas:', error);
+      console.error('Error fetching ideas:', error);
     } finally {
       setLoading(false);
     }
@@ -110,7 +125,7 @@ const FeaturedIdeas = () => {
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Student Ideas</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Student Ideas</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Discover innovative projects and ideas from our talented ECE students. 
             Get inspired and collaborate on groundbreaking solutions.
